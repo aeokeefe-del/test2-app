@@ -2,13 +2,14 @@
 import { questions } from './questions.js';
 import QuestionCard from "./components/QuestionCard.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
+import router from './router/index.js';
 
 export default {
   name: "App",
 
   components: {
     QuestionCard,
-    //ScoreBoard
+    ScoreBoard
   },
 
   data() {
@@ -16,7 +17,7 @@ export default {
       questions,
       currentIndex: 0,
       score: 0,
-      gameState: 'playing', // "start" / "playing" / "end"
+      gameState: 'start', // "start" / "playing" / "end"
       //testQuestion: {
         //question: "What does CSS stand for?",
         //answers: ["Cascading Style Sheets", "Computer Style System", "Creative Sheet Syntax", "Coded Style Script"],
@@ -43,16 +44,18 @@ export default {
       if (isCorrect) this.score++;
       this.currentIndex++;
     },
+    buttonPressed() {
+      this.gameState = 'playing';
+      router.push('/play');
+    }
   },
 };
-//<QuestionCard :question="testQuestion" />
 </script>
 
 <template>
-  <div v-if="currentState == 'playing'">
-    <QuestionCard :question="currentQuestion" @answer="onAnswer" />
-  </div>
-  <div v-else-if ="currentState == 'end'">
-    <ScoreBoard/>
+  <RouterView />
+  <div v-if="currentState === 'start'">
+    <h1>Welcome to the Quiz Game!</h1>
+    <button @click="buttonPressed">Start Game</button>
   </div>
 </template>
