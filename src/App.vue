@@ -3,6 +3,7 @@ import { questions } from './questions.js';
 import QuestionCard from "./components/QuestionCard.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
 import router from './router/index.js';
+import { RouterView } from 'vue-router';
 
 export default {
   name: "App",
@@ -54,7 +55,7 @@ export default {
 
 <template>
   <RouterView />
-  <div v-if="currentState === 'start'">
+  <div v-if="gameState === 'start'">
     <h1>Welcome to the Quiz Game!</h1>
     <button @click="buttonPressed">Start Game</button>
   </div>
